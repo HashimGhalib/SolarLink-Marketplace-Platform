@@ -3,13 +3,13 @@
  * Compose all sections in order below your Navbar.
  */
 
-import Hero from "@/components/shared/Hero";
-import AboutSection from "@/components/shared/AboutSection";
-import HowItWorksSection from "@/components/shared/HowItWorksSection";
-import WhoWeServeSection from "@/components/shared/WhoWeServeSection";
-import TestimonialsSection from "@/components/shared/TestimonialsSection";
-import CTASection from "@/components/shared/CTASection";
-import Footer from "@/components/shared/Footer";
+import Hero from "@/components/landing_page/Hero";
+import AboutSection from "@/components/landing_page/AboutSection";
+import HowItWorksSection from "@/components/landing_page/HowItWorksSection";
+import WhoWeServeSection from "@/components/landing_page/WhoWeServeSection";
+import TestimonialsSection from "@/components/landing_page/TestimonialsSection";
+import CTASection from "@/components/landing_page/CTASection";
+import Footer from "@/components/landing_page/Footer";
 import { Navbar } from "@/components/shared/Navbar";
 
 export default function LandingPage() {
