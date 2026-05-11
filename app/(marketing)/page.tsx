@@ -10,10 +10,12 @@ import WhoWeServeSection from "@/components/shared/WhoWeServeSection";
 import TestimonialsSection from "@/components/shared/TestimonialsSection";
 import CTASection from "@/components/shared/CTASection";
 import Footer from "@/components/shared/Footer";
+import { Navbar } from "@/components/shared/Navbar";
 
 export default function LandingPage() {
   return (
     <>
+      <Navbar />
       <main>
         <Hero />
         <AboutSection />
@@ -21,7 +23,7 @@ export default function LandingPage() {
         <WhoWeServeSection />
         <TestimonialsSection />
         <CTASection />
-      </main>
+      </main >
       <Footer />
     </>
   );
