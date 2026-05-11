@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { Sun, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { Sun, Mail, Phone, MapPin } from "lucide-react";
+import {
+    FaInstagram,
+    FaLinkedin,
+    FaTwitter
+} from "react-icons/fa";
+
+import NewsletterForm from "./NewsletterForm";
 
 const footerLinks = {
     Platform: [
@@ -23,9 +30,9 @@ const footerLinks = {
 };
 
 const socials = [
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: FaTwitter, href: "#", label: "Twitter" },
+    { icon: FaLinkedin, href: "#", label: "LinkedIn" },
+    { icon: FaInstagram, href: "#", label: "Instagram" },
 ];
 
 export default function Footer() {
@@ -108,22 +115,7 @@ export default function Footer() {
                         <p className="font-main text-sm font-bold text-white">Stay in the loop</p>
                         <p className="font-body text-xs text-white/50 mt-0.5">Get solar news, provider updates, and platform announcements.</p>
                     </div>
-                    <form
-                        onSubmit={(e) => e.preventDefault()}
-                        className="flex w-full sm:w-auto gap-2"
-                    >
-                        <input
-                            type="email"
-                            placeholder="you@example.com"
-                            className="font-body flex-1 sm:w-56 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#10B981]/60 focus:ring-1 focus:ring-[#10B981]/40 transition-all"
-                        />
-                        <button
-                            type="submit"
-                            className="rounded-xl bg-[#F59E0B] px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-500 active:scale-[0.97] transition-all whitespace-nowrap"
-                        >
-                            Subscribe
-                        </button>
-                    </form>
+                    <NewsletterForm />
                 </div>
             </div>
 

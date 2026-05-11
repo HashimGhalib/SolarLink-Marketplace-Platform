@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from "@/components/ui/select";
-import { CompanyCard } from "@/components/listings/CompanyCard";
+import { CompanyCard } from "@/components/modules/CompanyCard";
 import { CompanyCardSkeleton } from "@/components/listings/Skeleton";
 import companiesData from "@/data/companies.json";
 

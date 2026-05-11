@@ -12,13 +12,27 @@ The SolarLink frontend provides a seamless interface for users to:
 - **Manage:** A dedicated dashboard for both customers and solar vendors to manage leads and installations.
 
 ## 🛠 Tech Stack
-- **Framework:** [Next.js 14+](https://nextjs.org/) (App Router)
+
+### Core Technologies
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
 - **Language:** [TypeScript](https://www.typescriptlang.org/) (Strict Mode)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components:** [shadcn/ui](https://ui.shadcn.com/) (based on Radix UI)
-- **State Management:** [Zustand](https://zustand-demo.pmnd.rs/) (Client state) & [TanStack Query](https://tanstack.com/query/latest) (Server state)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Frontend Library:** [React 19](https://react.dev/)
+
+### Styling & UI
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI Components:** [shadcn/ui](https://ui.shadcn.com/) + [Radix UI](https://www.radix-ui.com/)
+- **Icons:** [Lucide React](https://lucide.dev/) & [React Icons](https://react-icons.github.io/react-icons/)
+- **Utility Libraries:** 
+  - [clsx](https://github.com/lukeed/clsx)
+  - [tailwind-merge](https://github.com/dcastil/tailwind-merge)
+  - [class-variance-authority](https://cva.style/)
+
+### Animation & Effects
+- **Animations:** [tw-animate-css](https://www.npmjs.com/package/tw-animate-css)
+
+### Development Tools
+- **Linting:** [ESLint](https://eslint.org/)
+- **PostCSS Plugin:** [@tailwindcss/postcss](https://www.npmjs.com/package/@tailwindcss/postcss)
 
 ---
 
@@ -45,8 +59,8 @@ solarlink-platform
 ├── components/       
 │   ├── ui/           # Atomic shadcn/ui components (Buttons, Inputs, etc.)
 │   ├── shared/       # Common components (Navbar, Footer, SearchBar)
-│   ├── modules/      # Feature-specific components (CompanyCard)
-│   └── sections/     # Feature-specific sections (About, How it works, etc.)
+│   └── modules/      # Feature-specific components (CompanyCard)
+    └── modules/      # Feature-specific components (CompanyCard)
 ├── hooks/            # Custom reusable React hooks
 ├── services/         # API integration logic (Axios/Fetch wrappers)
 ├── types/            # TypeScript interfaces and type definitions
