@@ -67,6 +67,7 @@ export default function DashboardPage() {
                         ))}
                     </div>
 
+
                     {/* ── Tabs ── */}
                     <div className="mb-6 flex gap-1 rounded-xl border border-emerald-100 bg-white p-1 w-fit shadow-sm">
                         {(["overview", "quotes", "activity"] as const).map((tab) => (
@@ -83,12 +84,20 @@ export default function DashboardPage() {
                         ))}
                     </div>
 
+
                     {/* ── Overview Tab ── */}
                     {activeTab === "overview" && (
                         <div className="grid gap-6 lg:grid-cols-3">
 
                             {/* Installations (2/3 width) */}
                             <div className="lg:col-span-2 space-y-4">
+
+                                {/* My Installations header */}
+                                <div className="flex items-center justify-between">
+                                    <h2 className="font-main text-base font-extrabold text-[#1F2937]">My Installations</h2>
+                                    <button className="font-body text-xs font-semibold text-[#10B981] hover:underline">View all</button>
+                                </div>
+
                                 {filteredInstallations.length > 0 ? (
                                     filteredInstallations.map((inst) => <InstallationCard key={inst.id} inst={inst} />)
                                 ) : (

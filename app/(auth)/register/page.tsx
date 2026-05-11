@@ -14,6 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { useAuth } from "@/hooks/useAuth";
 
 const roles = [
     { value: "customer", label: "Customer", sub: "Find & book solar installations" },
@@ -28,40 +29,18 @@ const trustPoints = [
 ];
 
 export default function RegisterPage() {
-    const [isLoading, setIsLoading] = useState(false);
+    const { handleRegister, isLoading, error } = useAuth();
+
     const [role, setRole] = useState("");
-    const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const router = useRouter();
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setIsLoading(true);
-        setError("");
+
         const formData = new FormData(e.currentTarget);
-        const payload = {
-            name: formData.get("name"),
-            email: formData.get("email"),
-            password: formData.get("password"),
-            role,
-        };
-        try {
-            const response = await fetch("https://dummyjson.com/users/add", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            });
-            if (!response.ok) throw new Error("Registration failed");
-            const result = await response.json();
-            console.log("User registered:", result);
-            localStorage.setItem("solarlink_user", JSON.stringify(payload));
-            router.push("/dashboard");
-        } catch (err) {
-            console.error(err);
-            setError("Something went wrong. Please try again.");
-        } finally {
-            setIsLoading(false);
-        }
+        handleRegister(formData, role);
+
     };
 
     return (
@@ -161,16 +140,16 @@ export default function RegisterPage() {
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
 
-                        {/* Full name */}
+                        {/* Username */}
                         <div className="space-y-1.5">
-                            <Label htmlFor="name" className="font-body text-xs font-semibold uppercase tracking-widest text-[#065F46]">
-                                Full Name
+                            <Label htmlFor="username" className="font-body text-xs font-semibold uppercase tracking-widest text-[#065F46]">
+                                Username
                             </Label>
                             <Input
-                                id="name"
-                                name="name"
+                                id="username"
+                                name="username"
                                 type="text"
-                                placeholder="Amaka Okonkwo"
+                                placeholder="e.g. johndoe"
                                 required
                                 disabled={isLoading}
                                 className="rounded-xl border-emerald-100 bg-white focus-visible:ring-[#10B981]/40 focus-visible:border-[#10B981] text-[#1F2937] placeholder:text-[#1F2937]/30 font-body h-11"
@@ -198,7 +177,7 @@ export default function RegisterPage() {
                             <Label className="font-body text-xs font-semibold uppercase tracking-widest text-[#065F46]">
                                 I am a…
                             </Label>
-                            <Select required onValueChange={setRole}>
+                            <Select required onValueChange={setRole} disabled={isLoading}>
                                 <SelectTrigger className="rounded-xl border-emerald-100 bg-white focus:ring-[#10B981]/40 font-body h-11 text-[#1F2937]">
                                     <SelectValue placeholder="Select your role" />
                                 </SelectTrigger>

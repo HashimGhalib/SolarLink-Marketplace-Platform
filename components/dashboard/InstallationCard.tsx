@@ -7,10 +7,7 @@ import { HealthBar } from "./HealthBar";
 export function InstallationCard({ inst }: { inst: Installation }) {
     return (
         <>
-            <div className="flex items-center justify-between">
-                <h2 className="font-main text-base font-extrabold text-[#1F2937]">My Installations</h2>
-                <button className="font-body text-xs font-semibold text-[#10B981] hover:underline">View all</button>
-            </div>
+
             <div key={inst.id}
                 className="rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm hover:shadow-md hover:shadow-emerald-50 transition-shadow">
                 <div className="flex items-start justify-between gap-3 mb-4">

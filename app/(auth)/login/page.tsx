@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Loader2, Sun, Eye, EyeOff, ArrowRight, ShieldCheck, Star, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks/useAuth";
 
 const trustPoints = [
     { icon: ShieldCheck, text: "Secure, encrypted access" },
@@ -15,40 +16,24 @@ const trustPoints = [
 ];
 
 export default function LoginPage() {
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
+    const { handleLogin, isLoading, error } = useAuth();
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("solarlink_token");
+        if (token) {
+            router.replace("/dashboard");
+        }
+    }, [router]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setIsLoading(true);
-        setError("");
 
         const formData = new FormData(e.currentTarget);
-        const payload = {
-            username: formData.get("email"), // dummyjson often uses username/email
-            password: formData.get("password"),
-        };
+        handleLogin(formData);
 
-        try {
-            // Using dummyjson login endpoint for demonstration
-            const response = await fetch("https://dummyjson.com/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            });
-
-            if (!response.ok) throw new Error("Invalid credentials");
-
-            const result = await response.json();
-            localStorage.setItem("solarlink_token", result.token);
-            router.push("/dashboard");
-        } catch (err) {
-            setError("Invalid email or password. Please try again.");
-        } finally {
-            setIsLoading(false);
-        }
     };
 
     return (
@@ -127,7 +112,7 @@ export default function LoginPage() {
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         {/* Email */}
-                        <div className="space-y-1.5">
+                        {/* <div className="space-y-1.5">
                             <Label htmlFor="email" className="font-body text-xs font-semibold uppercase tracking-widest text-[#065F46]">
                                 Email Address
                             </Label>
@@ -140,7 +125,24 @@ export default function LoginPage() {
                                 disabled={isLoading}
                                 className="rounded-xl border-emerald-100 bg-white focus-visible:ring-[#10B981]/40 focus-visible:border-[#10B981] text-[#1F2937] h-11"
                             />
+                        </div> */}
+
+                        {/* Username */}
+                        <div className="space-y-1.5">
+                            <Label htmlFor="username" className="font-body text-xs font-semibold uppercase tracking-widest text-[#065F46]">
+                                Username
+                            </Label>
+                            <Input
+                                id="username"
+                                name="username"
+                                type="text"
+                                placeholder="@username"
+                                required
+                                disabled={isLoading}
+                                className="rounded-xl border-emerald-100 bg-white focus-visible:ring-[#10B981]/40 focus-visible:border-[#10B981] text-[#1F2937] h-11"
+                            />
                         </div>
+
 
                         {/* Password */}
                         <div className="space-y-1.5">

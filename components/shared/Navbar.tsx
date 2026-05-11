@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { Separator } from "@/components/ui/separator";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
     { name: "Home", href: "/" },
@@ -41,11 +42,27 @@ export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const router = useRouter();
+
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 12);
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
+
+    useEffect(() => {
+        // Check if token exists on mount
+        const token = localStorage.getItem("solarlink_token");
+        setIsLoggedIn(!!token);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("solarlink_token");
+        localStorage.removeItem("solarlink_user");
+        setIsLoggedIn(false);
+        router.push("/login");
+    };
 
     return (
         <header
@@ -81,14 +98,36 @@ export function Navbar() {
 
                 {/* CTA + mobile trigger */}
                 <div className="flex items-center gap-2">
-                    <Button
-                        size="sm"
-                        className="hidden md:inline-flex rounded-xl bg-[#F59E0B] text-[13px] font-bold text-white shadow-sm shadow-amber-200 hover:bg-amber-500 active:scale-[0.97] transition-all"
-                        asChild
-                    >
-                        <Link href="/login">Get Started</Link>
-                    </Button>
+                    {/* DESKTOP VIEW */}
+                    {isLoggedIn ? (
+                        <div className="hidden md:flex items-center gap-2">
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="rounded-xl text-[#065F46] hover:bg-emerald-50 font-medium"
+                                asChild
+                            >
+                                <Link href="/dashboard">Dashboard</Link>
+                            </Button>
+                            <Button
+                                size="sm"
+                                onClick={handleLogout}
+                                className="rounded-xl bg-red-50 text-[13px] font-bold text-red-600 border border-red-100 hover:bg-red-100 transition-all"
+                            >
+                                Logout
+                            </Button>
+                        </div>
+                    ) : (
+                        <Button
+                            size="sm"
+                            className="hidden md:inline-flex rounded-xl bg-[#F59E0B] text-[13px] font-bold text-white shadow-sm shadow-amber-200 hover:bg-amber-500 active:scale-[0.97] transition-all"
+                            asChild
+                        >
+                            <Link href="/login">Get Started</Link>
+                        </Button>
+                    )}
 
+                    {/* MOBILE VIEW TRIGGER */}
                     <Sheet open={isOpen} onOpenChange={setIsOpen}>
                         <SheetTrigger asChild>
                             <Button
@@ -128,17 +167,42 @@ export function Navbar() {
                                         </Link>
                                     </Button>
                                 ))}
+
+                                {/* Mobile Dashboard link if logged in */}
+                                {isLoggedIn && (
+                                    <Button
+                                        variant="ghost"
+                                        className="justify-start rounded-xl px-3 py-2.5 text-[14px] font-medium text-[#065F46]/70 hover:text-[#065F46] hover:bg-emerald-50"
+                                        asChild
+                                    >
+                                        <Link href="/dashboard" onClick={() => setIsOpen(false)}>
+                                            Dashboard
+                                        </Link>
+                                    </Button>
+                                )}
                             </div>
 
                             <div className="px-3 pb-4 pt-1">
-                                <Button
-                                    className="w-full rounded-xl bg-[#F59E0B] text-[14px] font-bold text-white hover:bg-amber-500 active:scale-[0.98] shadow-sm shadow-amber-200"
-                                    asChild
-                                >
-                                    <Link href="/login" onClick={() => setIsOpen(false)}>
-                                        Get Started
-                                    </Link>
-                                </Button>
+                                {isLoggedIn ? (
+                                    <Button
+                                        onClick={() => {
+                                            handleLogout();
+                                            setIsOpen(false);
+                                        }}
+                                        className="w-full rounded-xl bg-red-500 text-[14px] font-bold text-white hover:bg-red-600 active:scale-[0.98]"
+                                    >
+                                        Logout
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        className="w-full rounded-xl bg-[#F59E0B] text-[14px] font-bold text-white hover:bg-amber-500 active:scale-[0.98] shadow-sm shadow-amber-200"
+                                        asChild
+                                    >
+                                        <Link href="/login" onClick={() => setIsOpen(false)}>
+                                            Get Started
+                                        </Link>
+                                    </Button>
+                                )}
                             </div>
                         </SheetContent>
                     </Sheet>
