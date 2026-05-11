@@ -1,0 +1,69 @@
+[
+    {
+        "id": "1",
+        "name": "SunStride Installations",
+        "logo": "https://api.dicebear.com/7.x/initials/svg?seed=SS",
+        "rating": 4.8,
+        "location": "California",
+        "services": [
+            "Residential",
+            "Battery Storage"
+        ],
+        "type": "Installer"
+    },
+    {
+        "id": "2",
+        "name": "VoltWholesale",
+        "logo": "https://api.dicebear.com/7.x/initials/svg?seed=VW",
+        "rating": 4.5,
+        "location": "Texas",
+        "services": [
+            "Panel Wholesale",
+            "Inverters"
+        ],
+        "type": "Wholesaler"
+    },
+    {
+        "id": "3",
+        "name": "EcoRay Solar",
+        "rating": 4.9,
+        "location": "Florida",
+        "services": [
+            "Commercial",
+            "Maintenance"
+        ],
+        "type": "Installer"
+    },
+    {
+        "id": "4",
+        "name": "PureGrid Systems",
+        "rating": 4.2,
+        "location": "California",
+        "services": [
+            "Residential",
+            "EV Charging"
+        ],
+        "type": "Installer"
+    },
+    {
+        "id": "5",
+        "name": "Apex Solar Parts",
+        "rating": 4.7,
+        "location": "Arizona",
+        "services": [
+            "Mounting Hardware"
+        ],
+        "type": "Wholesaler"
+    },
+    {
+        "id": "6",
+        "name": "Solas Service Group",
+        "rating": 4.6,
+        "location": "Texas",
+        "services": [
+            "Residential",
+            "Roofing"
+        ],
+        "type": "Installer"
+    }
+]
